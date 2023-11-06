@@ -1,5 +1,9 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
+
+COPY mirror.sh /tmp/mirror.sh
+RUN /bin/bash -x /tmp/mirror.sh
+
 USER 0
 RUN if [ -z "${http_proxy}" ]; then echo "Acquire::http::proxy \"${http_proxy}\";" >> /etc/apt/apt.conf; fi
 RUN if [ -z "${https_proxy}" ]; then echo "Acquire::https::proxy \"${https_proxy}\";" >> /etc/apt/apt.conf; fi
